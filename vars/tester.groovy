@@ -12,11 +12,12 @@ private def downloadJacocoIfNeeded() {
 }
 
 def generateJacocoReport() {
-    sh "mvn -Djacoco.dataFile=${WORKSPACE}/jacoco.exec org.jacoco:jacoco-maven-plugin:0.8.6:report"
+    sh "mvn -Djacoco.dataFile=${WORKSPACE}/jacoco/jacoco.exec org.jacoco:jacoco-maven-plugin:0.8.6:report"
 }
 
 def publishTests() {
 	junit '*.xml'
+	jacoco ( execPattern: '**/*.exec',  classPattern: '**/target/classes', sourcePattern: '**/*.java', inclusionPattern: '**/*.class' )
 	generateJacocoReport()
 }
 	        		
@@ -31,7 +32,7 @@ private def getJunitCmdTemplate(String capellaProductPath, String applicationPar
   
   // extract the capella path, without the executable name
   def capellaPath = capellaProductPath.substring(0, capellaProductPath.lastIndexOf("/"))
-  def jacocoParameters = "\"-javaagent:${WORKSPACE}/jacoco/lib/jacocoagent.jar=includes=*,excludes=,exclclassloader=sun.reflect.DelegatingClassLoader,destfile=${WORKSPACE}/jacoco.exec,output=file,append=true\" "
+  def jacocoParameters = "\"-javaagent:${WORKSPACE}/jacoco/lib/jacocoagent.jar=includes=*,excludes=,exclclassloader=sun.reflect.DelegatingClassLoader,destfile=${WORKSPACE}/jacoco/jacoco.exec,output=file,append=true\" "
   
   return "sleep 10 && " +
     "java " +
