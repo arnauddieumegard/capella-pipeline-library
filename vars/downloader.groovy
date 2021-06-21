@@ -41,3 +41,47 @@ def downloadMacJDK(jdkMacFolder) {
   println "Mac JDK downloaded to ${jdkMacFolder}/jre"
 	sh "ls ${jdkMacFolder}/jre"
 }
+
+def downloadWindowsJDK16(jdkWinFolder) {
+	def jdk = 'jdk-16.0.1'
+  
+  def jdkWinURL = 'https://download.java.net/java/GA/jdk16.0.1/7147401fd7354114ac51ef3e1328291f/9/GPL/openjdk-16.0.1_windows-x64_bin.zip'
+  def jdkWinZip = 'jdkWin.zip'	
+      
+	sh "curl -k -o ${jdkWinZip} ${jdkWinURL}"
+	sh "unzip -q ${jdkWinZip} -d ${jdkWinFolder}"
+	sh "mv ${jdkWinFolder}/${jdk} ${jdkWinFolder}/jre"        
+  
+  println "Windows JDK dowloaded to ${jdkWinFolder}/jre"
+  sh "ls ${jdkWinFolder}/jre"
+}
+
+def downloadLinuxJDK16(jdkLinuxFolder) {
+	def jdk = 'jdk-16.0.1'
+  
+  def jdkLinuxURL = 'https://download.java.net/java/GA/jdk16.0.1/7147401fd7354114ac51ef3e1328291f/9/GPL/openjdk-16.0.1_linux-x64_bin.tar.gz'
+  def jdkLinuxTar = 'jdkLinux.tar.gz'
+      
+	sh "curl -k -o ${jdkLinuxTar} ${jdkLinuxURL}"
+	sh "mkdir ${jdkLinuxFolder}"
+  sh "tar xzf ${jdkLinuxTar} -C ${jdkLinuxFolder}"
+	sh "mv ${jdkLinuxFolder}/${jdk} ${jdkLinuxFolder}/jre"
+  
+  println "Linux JDK downloaded to ${jdkLinuxFolder}/jre"    
+	sh "ls ${jdkLinuxFolder}/jre"
+}
+
+def downloadMacJDK16(jdkMacFolder) {
+	def jdk = 'jdk-16.0.1'
+  
+  def jdkMacURL = 'https://download.java.net/java/GA/jdk16.0.1/7147401fd7354114ac51ef3e1328291f/9/GPL/openjdk-16.0.1_osx-x64_bin.tar.gz'
+  def jdkMacTar = 'jdkMac.tar.gz'
+        
+	sh "curl -k -o ${jdkMacTar} ${jdkMacURL}"
+	sh "mkdir ${jdkMacFolder}"
+	sh "tar xzf ${jdkMacTar} -C ${jdkMacFolder}"
+	sh "mv ${jdkMacFolder}/${jdk}.jdk ${jdkMacFolder}/jre"
+
+  println "Mac JDK downloaded to ${jdkMacFolder}/jre"
+	sh "ls ${jdkMacFolder}/jre"
+}

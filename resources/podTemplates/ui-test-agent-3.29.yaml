@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:
-  - name: uitests
+  - name: capella-agent
     image: eclipsecbijenkins/ui-test-agent:3.29
     tty: true
     command: [ "uid_entrypoint", "cat" ]
